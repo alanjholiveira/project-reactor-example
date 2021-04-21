@@ -24,7 +24,7 @@ import reactor.test.StepVerifier;
 public class MonoTest {
 
     @Test
-    public void monoSubstriber() {
+    public void monoSubscriber() {
         String name = "Alan Olivera";
         Mono<String> mono = Mono.just(name)
                 .log();
@@ -36,7 +36,36 @@ public class MonoTest {
         StepVerifier.create(mono)
                 .expectNext(name)
                 .verifyComplete();
-
-
     }
+
+    @Test
+    public void monoSubscriberConsumer() {
+        String name = "Alan Olivera";
+        Mono<String> mono = Mono.just(name)
+                .log();
+
+        mono.subscribe((s) -> log.info("Value {}", s) );
+
+        log.info("-----------------------------------------");
+
+        StepVerifier.create(mono)
+                .expectNext(name)
+                .verifyComplete();
+    }
+
+    @Test
+    public void monoSubscriberConsumerError() {
+        String name = "Alan Olivera";
+        Mono<String> mono = Mono.just(name)
+                .map(s -> {throw new RuntimeException("Testing mono with error");});
+
+        mono.subscribe(s -> log.info("Name {}", s), s -> log.error("Something bad happened") );
+
+        log.info("-----------------------------------------");
+
+        StepVerifier.create(mono)
+                .expectError(RuntimeException.class)
+                .verify();
+    }
+
 }
