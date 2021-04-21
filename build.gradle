@@ -1,0 +1,44 @@
+plugins {
+    id 'java'
+}
+
+group 'br.com.reactor'
+version '1.0-SNAPSHOT'
+sourceCompatibility = '11'
+targetCompatibility = '11'
+
+
+repositories {
+    mavenCentral()
+}
+
+//ext {
+//    junitJupiterVersion = '5.7.0'
+//    reactorVersion = '3.4.5'
+//    lombokVersion = '1.18.20'
+//    slf4jVersion = '1.7.30'
+//}
+
+dependencies {
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.0'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.0'
+
+    implementation 'io.projectreactor:reactor-core:3.4.5'
+    testImplementation 'io.projectreactor:reactor-test:3.4.5'
+
+    compileOnly 'org.projectlombok:lombok:1.18.20'
+    annotationProcessor 'org.projectlombok:lombok:1.18.20'
+
+    testCompileOnly 'org.projectlombok:lombok:1.18.20'
+    testAnnotationProcessor 'org.projectlombok:lombok:1.18.20'
+
+    implementation 'org.slf4j:slf4j-api:1.7.30'
+    implementation 'org.slf4j:slf4j-simple:1.7.30'
+
+
+
+}
+
+test {
+    useJUnitPlatform()
+}
