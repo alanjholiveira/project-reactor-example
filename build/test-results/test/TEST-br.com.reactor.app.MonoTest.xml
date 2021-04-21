@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="br.com.reactor.app.MonoTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2021-04-21T20:15:09" hostname="Alans-iMac-Pro.local" time="0.113">
+  <properties/>
+  <testcase name="monoSubstriber()" classname="br.com.reactor.app.MonoTest" time="0.113"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[[Test worker] INFO reactor.Mono.Just.1 - | onSubscribe([Synchronous Fuseable] Operators.ScalarSubscription)
+[Test worker] INFO reactor.Mono.Just.1 - | request(unbounded)
+[Test worker] INFO reactor.Mono.Just.1 - | onNext(Alan Olivera)
+[Test worker] INFO reactor.Mono.Just.1 - | onComplete()
+[Test worker] INFO br.com.reactor.app.MonoTest - -----------------------------------------
+[Test worker] INFO reactor.Mono.Just.1 - | onSubscribe([Synchronous Fuseable] Operators.ScalarSubscription)
+[Test worker] INFO reactor.Mono.Just.1 - | request(unbounded)
+[Test worker] INFO reactor.Mono.Just.1 - | onNext(Alan Olivera)
+[Test worker] INFO reactor.Mono.Just.1 - | onComplete()
+]]></system-err>
+</testsuite>
