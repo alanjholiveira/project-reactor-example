@@ -84,6 +84,7 @@ public class FluxTest {
             private int count = 0;
             private Subscription subscription;
             private final int requestCount = 2;
+
             @Override
             public void onSubscribe(Subscription subscription) {
                 this.subscription = subscription;

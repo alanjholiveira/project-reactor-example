@@ -28,4 +28,23 @@ public class OperatorsTest {
                 .verifyComplete();
     }
 
+    @Test
+    public void publishOnSimple() {
+        Flux<Integer> flux = Flux.range(1, 4)
+                .map(i -> {
+                    log.info("Map 1 - Number {} on Thread {}", i, Thread.currentThread().getName());
+                    return i;
+                })
+                .publishOn(Schedulers.boundedElastic())
+                .map(i -> {
+                    log.info("Map 2 - Number {} on Thread {}", i, Thread.currentThread().getName());
+                    return i;
+                });
+
+        StepVerifier.create(flux)
+                .expectSubscription()
+                .expectNext(1,2,3,4)
+                .verifyComplete();
+    }
+
 }
