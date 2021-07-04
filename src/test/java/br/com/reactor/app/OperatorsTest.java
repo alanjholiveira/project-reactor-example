@@ -10,6 +10,7 @@ import reactor.test.StepVerifier;
 
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.time.Duration;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicLong;
 
@@ -166,6 +167,10 @@ public class OperatorsTest {
             .verify();
     }
 
+    private Flux<Object> emptyFlux() {
+        return Flux.empty();
+    }
+
     @Test
     public void deferOperator() throws Exception {
         Mono<Long> just = Mono.just(System.currentTimeMillis());
@@ -234,7 +239,38 @@ public class OperatorsTest {
 
     }
 
-    private Flux<Object> emptyFlux() {
-        return Flux.empty();
+    @Test
+    public void mergeOperator() {
+        Flux<String> flux1 = Flux.just("a", "b").delayElements(Duration.ofMillis(200));
+        Flux<String> flux2 = Flux.just("c", "d");
+
+        Flux<String> mergeFlux = Flux.merge(flux1, flux2)
+                .delayElements(Duration.ofMillis(200))
+                .log();
+
+        StepVerifier
+                .create(mergeFlux)
+                .expectSubscription()
+                .expectNext("c","d","a","b")
+                .expectComplete()
+                .verify();
     }
+
+    @Test
+    public void mergeWithOperator() {
+        Flux<String> flux1 = Flux.just("a", "b").delayElements(Duration.ofMillis(200));
+        Flux<String> flux2 = Flux.just("c", "d");
+
+        Flux<String> mergeFlux = flux1.mergeWith(flux2)
+                .delayElements(Duration.ofMillis(200))
+                .log();
+
+        StepVerifier
+                .create(mergeFlux)
+                .expectSubscription()
+                .expectNext("c","d","a","b")
+                .expectComplete()
+                .verify();
+    }
+
 }
